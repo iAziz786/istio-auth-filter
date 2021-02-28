@@ -33,3 +33,22 @@ kubectl exec "$(kubectl get pod -l app=sleep -n develop -o jsonpath={.items..met
 
 # {"msg":"protected resource available"}
 ```
+
+### Applying Gateway
+
+You can apply gateway by running the following command. It will create istio gateway as well as the virtual service.
+
+```sh
+kubectl apply -f 06-ingress-gateway.yaml -n develop
+```
+
+After it's done you can access it on `http://$INGRESS_HOST:$INGRESS_PORT/protected`. But wait, from where can we get this value?
+
+```sh
+export INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
+#      ^ this will give you the PORT
+export INGRESS_HOST=$(minikube ip)
+#      ^ this will give you the host
+```
+
+Read [ingress-gateway](https://istio.io/latest/docs/tasks/traffic-management/ingress/ingress-control/) for more info.
