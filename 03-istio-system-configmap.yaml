@@ -1,0 +1,13 @@
+# NOTE: THIS IS NOT A Kubernetes Yaml
+
+# You should not apply this to your Kubernetes server but you need to use this
+# to change the configmap of the istio-system
+
+data:
+  mesh: |-
+    - name: "sample-ext-authz-http"
+      envoyExtAuthzHttp:
+        pathPrefix: "/auth"
+        service: "ext-authz.develop.svc.cluster.local"
+        port: "8000"
+        includeHeadersInCheck: ["x-api-key"]
