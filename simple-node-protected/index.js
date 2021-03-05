@@ -5,7 +5,7 @@ const app = express()
 
 app.use(bodyParser.json())
 
-app.post("/protected", (req, res) => {
+app.post("/protected/nested/route", (req, res) => {
     console.log("client IP", req.ip)
     console.log("body", req.body)
     console.log("headers", req.headers)

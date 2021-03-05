@@ -10,4 +10,5 @@ data:
         pathPrefix: "/auth"
         service: "ext-authz.develop.svc.cluster.local"
         port: "8000"
-        includeHeadersInCheck: ["x-api-key"]
+        includeHeadersInCheck: ["x-api-key", "x-forwarded-for"]
+        headersToUpstreamOnAllow: ["org-name"]
